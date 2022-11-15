@@ -34,8 +34,17 @@ const CreateAd = ({navigation}) => {
     const [phone,setPhone] = useState('')
     const [maxCap,setMaxcap] = useState('')
     const [address,setAddress] = useState('')
-    const [image,setImage] = useState("");
-    const [tempImage,setTempImage] = useState("");
+    const [image1,setImage1] = useState("");
+    const [image2,setImage2] = useState("");
+    const [image3,setImage3] = useState("");
+    const [image4,setImage4] = useState("");
+    const [image5,setImage5] = useState("");
+    const [tempImage1,setTempImage1] = useState("");
+    const [tempImage2,setTempImage2] = useState("");
+    const [tempImage3,setTempImage3] = useState("");
+    const [tempImage4,setTempImage4] = useState("");
+    const [tempImage5,setTempImage5] = useState("");
+    const [images,setImages] = useState([]);
 
    
 
@@ -51,7 +60,11 @@ const CreateAd = ({navigation}) => {
               phone,
               maxCap,
               address,
-              tempImage,
+              tempImage1,
+              tempImage2,
+              tempImage3,
+              tempImage4,
+              tempImage5,
               pin,
               uid:auth.currentUser.uid
           })
@@ -65,7 +78,11 @@ const CreateAd = ({navigation}) => {
           setPhone('');
           setMaxcap('');
           setAddress('');
-          setImage('');
+          setImage1('');
+          setImage2('');
+          setImage3('');
+          setImage4('');
+          setImage5('');
         }catch(err){
             console.log(err);
           Alert.alert("something went wrong.try again")
@@ -73,36 +90,60 @@ const CreateAd = ({navigation}) => {
     }
 
 
-    // start -------------------------
-
-    const pickImage = async () => {
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+// image ka kaam shuru
+const uploadAllImages = async () =>{
+    await pickImage1();
+}
+    const pickImage1 = async () => {
 
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing:true,
+            allowsMultipleSelection:true,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            // allowsEditing:true,
+            selectionLimit: 5,
             aspect: [4,3],
             quality:1,
         });
 
-        const source = {uri: result.uri};
-        console.log(source);
-        setImage(source);
-        setTempImage(source.uri);
-        console.log(source);
-    };
+        // console.log(result);
+        if(!result.cancelled){
+            setImages(result.uri ? [result.uri]:result.selected);
+        }
+        // const source = {uri: result.uri};
+        // console.log(source);
+        // setImage(source);
+        // setTempImage1(source.uri);
+        // console.log(source);
+        
+        console.log(images[0].uri); // source hia image[i].uri
+        console.log(images[1].uri);
+        console.log(images[2].uri);
+        console.log(images[3].uri);
+        console.log(images[4].uri);
 
-    const uploadImage = async () => {
+        const source = {uri: images[0].uri};
+        console.log(source);
+        setImage1(source);
+        setTempImage1(source.uri);
+        console.log(tempImage1);
+
+        uploadImage1();
+    };
+    const uploadImage1 = async () => {
         setUploading(true);
-        const response = await fetch(image.uri)
+        const response = await fetch(image1.uri)
         const blob = await response.blob();
         const filename = Date.now();
         var ref = storageRef.child(`${filename}`).put(blob);
         ref.then((snapshot)=>{
             ref.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                setTempImage(downloadURL)
+                setTempImage1(downloadURL)
             });
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            if(progress==100){alert("uploaded"); console.log("uploaded")}
+            if(progress==100){alert("uploaded 1"); console.log("uploaded 1")}
         }
         )
 
@@ -113,15 +154,178 @@ const CreateAd = ({navigation}) => {
         }
         setUploading(false);
         // Alert.alert('image uploaded..!!');
-        console.log(tempImage);
+        console.log(tempImage1);
+        setImage1("");
+        setTempImage1("");
+        pickImage2();
     };
 
-    const echoo=()=>{
-        console.log(tempImage);
+
+    const pickImage2 = async () => {
+
+        const source = {uri: images[1].uri};
+        console.log(source);
+        setImage2(source);
+        setTempImage2(source.uri);
+        uploadImage2();
+    };
+    const uploadImage2 = async () => {
+        setUploading(true);
+        const response = await fetch(image2.uri)
+        const blob = await response.blob();
+        const filename = Date.now();
+        var ref = storageRef.child(`${filename}`).put(blob);
+        ref.then((snapshot)=>{
+            ref.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                setTempImage2(downloadURL)
+            });
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            if(progress==100){alert("uploaded 2"); console.log("uploaded 2")}
+        }
+        )
+
+        try{
+            await ref;
+        }catch(e){
+            console.log(e);
+        }
+        setUploading(false);
+        // Alert.alert('image uploaded..!!');
+        console.log(tempImage2);
+        setImage2("");
+        setTempImage2("");
+        pickImage3();
     };
 
 
-    // -------------------------
+    const pickImage3 = async () => {
+
+        const source = {uri: images[2].uri};
+        console.log(source);
+        setImage3(source);
+        setTempImage3(source.uri);
+        console.log(source);
+        
+        uploadImage3();
+    };
+    const uploadImage3 = async () => {
+        setUploading(true);
+        const response = await fetch(image3.uri)
+        const blob = await response.blob();
+        const filename = Date.now();
+        var ref = storageRef.child(`${filename}`).put(blob);
+        ref.then((snapshot)=>{
+            ref.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                setTempImage3(downloadURL)
+            });
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            if(progress==100){alert("uploaded 3"); console.log("uploaded 3")}
+        }
+        )
+
+        try{
+            await ref;
+        }catch(e){
+            console.log(e);
+        }
+        setUploading(false);
+        // Alert.alert('image uploaded..!!');
+        console.log(tempImage3);
+        setImage3("");
+        setTempImage3("");
+        pickImage4();
+    };
+
+
+    const pickImage4 = async () => {
+
+        const source = {uri: images[3].uri};
+        console.log(source);
+        setImage4(source);
+        setTempImage4(source.uri);
+        console.log(source);
+        
+        uploadImage4();
+    };
+    const uploadImage4 = async () => {
+        setUploading(true);
+        const response = await fetch(image4.uri)
+        const blob = await response.blob();
+        const filename = Date.now();
+        var ref = storageRef.child(`${filename}`).put(blob);
+        ref.then((snapshot)=>{
+            ref.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                setTempImage4(downloadURL)
+            });
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            if(progress==100){alert("uploaded 4"); console.log("uploaded 4")}
+        }
+        )
+
+        try{
+            await ref;
+        }catch(e){
+            console.log(e);
+        }
+        setUploading(false);
+        // Alert.alert('image uploaded..!!');
+        console.log(tempImage4);
+        setImage4("");
+        setTempImage4("");
+        pickImage5();
+    };
+
+
+    const pickImage5 = async () => {
+
+        const source = {uri: images[4].uri};
+        console.log(source);
+        setImage5(source);
+        setTempImage5(source.uri);
+        console.log(source);
+        
+        uploadImage5();
+    };
+    const uploadImage5 = async () => {
+        setUploading(true);
+        const response = await fetch(image5.uri)
+        const blob = await response.blob();
+        const filename = Date.now();
+        var ref = storageRef.child(`${filename}`).put(blob);
+        ref.then((snapshot)=>{
+            ref.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                setTempImage5(downloadURL)
+            });
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            if(progress==100){alert("uploaded 5"); console.log("uploaded 5")}
+        }
+        )
+
+        try{
+            await ref;
+        }catch(e){
+            console.log(e);
+        }
+        setUploading(false);
+        // Alert.alert('image uploaded..!!');
+        console.log(tempImage5);
+        setImage5("");
+        setTempImage5("");
+    };
+
+
+// image ka kaam khatam
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+
+
+    // const echoo=()=>{
+    //     console.log(tempImage);
+    // };
+
+
+    
     // const selectPhoto = async ()=>{
     //     let result = await ImagePicker.launchImageLibraryAsync({
     //         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -253,13 +457,25 @@ const CreateAd = ({navigation}) => {
                     Set Location
                 </Button>
 
-                <Button style={styles.button} icon="camera"  mode="contained" onPress={() => pickImage()}>
-                     pick Image
+                <Button style={styles.button} icon="camera"  mode="contained" onPress={() => uploadAllImages()}>
+                     Upload 5 images
                  </Button>
+                {/* <Button style={styles.button} icon="camera"  mode="contained" onPress={() => pickImage2()}>
+                     pick Image 2
+                 </Button>
+                <Button style={styles.button} icon="camera"  mode="contained" onPress={() => pickImage3()}>
+                     pick Image 3 
+                 </Button>
+                <Button style={styles.button} icon="camera"  mode="contained" onPress={() => pickImage4()}>
+                     pick Image 4
+                 </Button>
+                <Button style={styles.button} icon="camera"  mode="contained" onPress={() => pickImage5()}>
+                     pick Image 5
+                 </Button> */}
                  
-                <Button style={styles.button} icon="camera"  mode="contained" onPress={() => uploadImage()}>
+                {/* <Button style={styles.button} icon="camera"  mode="contained" onPress={() => uploadImage()}>
                      upload Image
-                 </Button>
+                 </Button> */}
 
                 <Button style={styles.button} mode="contained" onPress={() => postData()}>
                      Post

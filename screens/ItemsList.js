@@ -109,7 +109,7 @@ const ItemsList = ({navigation}) => {
             <Paragraph style={{textAlign:'left'}}>Rs {item.price}/-</Paragraph>
             {/* <Paragraph>{item.desc}</Paragraph> */}
           </Card.Content>
-          <Card.Cover style={{borderRadius: 10,overflow: 'hidden'}} source={{ uri: item.tempImage }} />
+          <Card.Cover style={{borderRadius: 10,overflow: 'hidden'}} source={{ uri: item.tempImage1 }} />
           <Card.Actions>
           <TouchableOpacity style={styles.button}
             onPress={() => {
@@ -119,7 +119,11 @@ const ItemsList = ({navigation}) => {
                 size: item.size,
                 price: item.price,
                 maxCap: item.maxCap,
-                tempImage: item.tempImage,
+                tempImage1: item.tempImage1,
+                tempImage2: item.tempImage2,
+                tempImage3: item.tempImage3,
+                tempImage4: item.tempImage4,
+                tempImage5: item.tempImage5,
                 address: item.address,
                 phone: item.phone,
                 pin: item.pin,

@@ -3,7 +3,7 @@ import { View, Text,StyleSheet,Alert,Dimensions,KeyboardAvoidingView, ScrollView
 import { TextInput,Button,Title} from 'react-native-paper'
 
 const Description = ({route, navigation}) => {
-  const {desc, landMrk, size, price, maxCap, tempImage, address, phone,pin} = route.params;
+  const {desc, landMrk, size, price, maxCap, tempImage1,tempImage2,tempImage3,tempImage4,tempImage5, address, phone,pin} = route.params;
   return (
     // <View style={{ flex: 1, justifyContent: 'center', padding: 12 }}>
 
@@ -19,9 +19,28 @@ const Description = ({route, navigation}) => {
        <View>
         <Image style={{width:360, height:250, resizeMode:'cover', marginBottom: 10}}
           source={{
-            uri : tempImage,
+            uri : tempImage1,
           }}
-          
+        />
+        <Image style={{width:360, height:250, resizeMode:'cover', marginBottom: 10}}
+          source={{
+            uri : tempImage2,
+          }}
+        />
+        <Image style={{width:360, height:250, resizeMode:'cover', marginBottom: 10}}
+          source={{
+            uri : tempImage3,
+          }}
+        />
+        <Image style={{width:360, height:250, resizeMode:'cover', marginBottom: 10}}
+          source={{
+            uri : tempImage4,
+          }}
+        />
+        <Image style={{width:360, height:250, resizeMode:'cover', marginBottom: 10}}
+          source={{
+            uri : tempImage5,
+          }}
         />
         <View style={{marginBottom:20}}>
          <Title style={{padding:5}}>Description</Title>
